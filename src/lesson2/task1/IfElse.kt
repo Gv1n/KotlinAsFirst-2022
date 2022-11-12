@@ -3,6 +3,8 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
+import java.lang.Math.abs
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -68,7 +70,13 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
+fun ageDescription(age: Int): String {
+    return when {
+        age / 10 % 10 != 1 && age % 10 == 1 -> "$age год"
+        age / 10 % 10 != 1 && age % 10 in 2..4 -> "$age года"
+        else -> "$age лет"
+    }
+}
 
 /**
  * Простая (2 балла)
@@ -112,7 +120,16 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = TODO()
+): Int {
+    var danger = 0
+    if (kingX == rookX || kingY == rookY) {
+        danger += 1
+    }
+    if (abs(kingX - bishopX) == abs(kingY - bishopY)) {
+        danger += 2
+    }
+    return danger
+}
 
 /**
  * Простая (2 балла)
@@ -122,7 +139,21 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    return if (a + b < c || a + c < b || b + c < a) -1
+    else {
+        if (a * a == b * b + c * c || b * b == a * a + c * c || c * c == b * b + a * a) {
+            //прямоугольный
+            1
+        } else if (a * a > b * b + c * c || b * b > a * a + c * c || c * c > b * b + a * a) {
+            //тупоугольный
+            2
+        } else {
+            //остроугольный
+            0
+        }
+    }
+}
 
 /**
  * Средняя (3 балла)

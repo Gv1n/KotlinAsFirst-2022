@@ -3,6 +3,8 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
+import java.lang.Math.min
+import java.lang.Math.sqrt
 
 /**
  * Пример
@@ -18,7 +20,7 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
-fun isNumberHappy(number: Int): Boolean = TODO()
+fun isNumberHappy(number: Int): Boolean = number / 1000 + number / 100 % 10 == number % 100 / 10 + number % 10
 
 /**
  * Простая (2 балла)
@@ -48,7 +50,7 @@ fun daysInMonth(month: Int, year: Int): Int = TODO()
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
-): Boolean = TODO()
+): Boolean = sqrt( sqr( x1 - x2 ) + sqr( y1 - y2 ) ) + r1 <= r2
 
 /**
  * Средняя (3 балла)
@@ -59,4 +61,19 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean = TODO()
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
+    // определим 2 стороны наименьшей длины
+    val side1: Int
+    val side2: Int
+    if (min(min(a, b), c) == a) {
+        side1 = a
+        side2 = min(b, c)
+    } else if (min(min(a, b), c) == b) {
+        side1 = b
+        side2 = min(a, c)
+    } else {
+        side1 = c
+        side2 = min(a, b)
+    }
+    return (side1 <= r && side2 <= s) || (side1 <= s && side2 <= r)
+}
