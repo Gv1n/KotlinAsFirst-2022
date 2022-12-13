@@ -74,9 +74,9 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int = hours * 3600 + minute
  * Определить длину того же отрезка в метрах (в данном случае 18.98).
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
-fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = (
-        sagenes * 48 + arshins * 16 + vershoks
-        ) * 4.445 / 100
+fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
+    (sagenes * 48 + arshins * 16 + vershoks) * 4.445 / 100
+
 
 /**
  * Тривиальная (1 балл)
@@ -84,7 +84,8 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = (
  * Пользователь задает угол в градусах, минутах и секундах (например, 36 градусов 14 минут 35 секунд).
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
-fun angleInRadian(deg: Int, min: Int, sec: Int): Double = deg * 0.01745329252 + min * 0.00029088821 + sec * 0.00000484813681109536
+fun angleInRadian(deg: Int, min: Int, sec: Int): Double =
+    deg * PI / 180 + min * PI / 10800 + sec * PI / 648000
 
 /**
  * Тривиальная (1 балл)
@@ -120,9 +121,9 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double {
-    val year1: Double = initial + initial.toDouble() / 100 * percent
-    val year2: Double = year1 + year1 / 100 * percent
-    val year3: Double = year2 + year2 / 100 * percent
+    val year1 = initial + initial.toDouble() / 100 * percent
+    val year2 = year1 + year1 / 100 * percent
+    val year3 = year2 + year2 / 100 * percent
     return year3
 }
 

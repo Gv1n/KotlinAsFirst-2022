@@ -186,7 +186,20 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+    var number = n
+    var result = ""
+    var divider = 2
+    while (number > 1) {
+        if (number % divider == 0) {
+            number /= divider
+            result += "$divider*"
+            divider = 2
+        }
+        divider++
+    }
+    return result.removeSuffix("*")
+}
 
 /**
  * Средняя (3 балла)
@@ -241,7 +254,25 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    var result = ""
+    val arrayOfArab =
+        arrayOf(1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000)
+    val arrayOfRoman =
+        arrayOf("I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M")
+    var number = n
+    var index = arrayOfArab.size - 1
+    while (number > 0) {
+        var count = number / arrayOfArab[index]
+        number %= arrayOfArab[index]
+        while (count > 0) {
+            result += arrayOfRoman[index]
+            count -= 1
+        }
+        index--
+    }
+    return result
+}
 
 /**
  * Очень сложная (7 баллов)
@@ -251,3 +282,6 @@ fun roman(n: Int): String = TODO()
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String = TODO()
+fun main() {
+    println(roman(23))
+}

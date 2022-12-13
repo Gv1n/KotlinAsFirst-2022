@@ -70,13 +70,12 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String {
-    return when {
+fun ageDescription(age: Int): String =
+    when {
         age / 10 % 10 != 1 && age % 10 == 1 -> "$age год"
         age / 10 % 10 != 1 && age % 10 in 2..4 -> "$age года"
         else -> "$age лет"
     }
-}
 
 /**
  * Простая (2 балла)
@@ -139,21 +138,16 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int {
-    return if (a + b < c || a + c < b || b + c < a) -1
-    else {
-        if (a * a == b * b + c * c || b * b == a * a + c * c || c * c == b * b + a * a) {
-            //прямоугольный
-            1
-        } else if (a * a > b * b + c * c || b * b > a * a + c * c || c * c > b * b + a * a) {
-            //тупоугольный
-            2
-        } else {
-            //остроугольный
-            0
-        }
+fun triangleKind(a: Double, b: Double, c: Double): Int =
+    when {
+        (a + b < c || a + c < b || b + c < a) -> -1
+        //прямоугольный
+        (a * a == b * b + c * c || b * b == a * a + c * c || c * c == b * b + a * a) -> 1
+        //тупоугольный
+        (a * a > b * b + c * c || b * b > a * a + c * c || c * c > b * b + a * a) -> 2
+        //остроугольный
+        else -> 0
     }
-}
 
 /**
  * Средняя (3 балла)
@@ -164,21 +158,15 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    if (a > d || b < c) {
-        return -1
+    return when {
+        (a > d || b < c) -> -1
+        //a<c<b<d
+        (a <= c && b <= d) -> abs(b - c)
+        //c<a<d<b
+        (c <= a && d <= b) -> abs(d - a)
+        //a<c<d<b
+        (a <= c && d <= b) -> abs(c - d)
+        //c<a<b<d
+        else               -> abs(a - b)
     }
-    //a<c<b<d
-    else if (a <= c && b <= d) {
-        return abs(b - c)
-    }
-    //c<a<d<b
-    else if (c <= a && d <= b) {
-        return abs(d - a)
-    }
-    //a<c<d<b
-    else if (a <= c && d <= b) {
-        return abs(c - d)
-    }
-    //c<a<b<d
-    else return abs(a - b)
 }
